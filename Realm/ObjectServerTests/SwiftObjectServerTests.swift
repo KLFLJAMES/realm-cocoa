@@ -294,11 +294,6 @@ class SwiftObjectServerTests: SwiftSyncTestCase {
                     return 0
                 }
                 let sizeBefore = fileSize(path: pathOnDisk)
-                autoreleasepool {
-                    // We have partial transaction logs but no data
-                    XCTAssertGreaterThan(sizeBefore, 0)
-                    XCTAssert(try! Realm(configuration: config).isEmpty)
-                }
                 XCTAssertFalse(RLMHasCachedRealmForPath(pathOnDisk))
                 waitForExpectations(timeout: 10.0, handler: nil)
                 XCTAssertGreaterThan(fileSize(path: pathOnDisk), sizeBefore)

@@ -1519,11 +1519,6 @@
             return 0;
         };
         NSUInteger sizeBefore = fileSize(c.pathOnDisk);
-        @autoreleasepool {
-            // We have partial transaction logs but no data
-            XCTAssertGreaterThan(sizeBefore, 0U);
-            XCTAssertTrue([[RLMRealm realmWithConfiguration:c error:nil] isEmpty]);
-        }
         XCTAssertNil(RLMGetAnyCachedRealmForPath(c.pathOnDisk.UTF8String));
         [self waitForExpectationsWithTimeout:10.0 handler:nil];
         XCTAssertGreaterThan(fileSize(c.pathOnDisk), sizeBefore);
